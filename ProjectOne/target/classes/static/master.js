@@ -25,7 +25,6 @@ let updateString;
 let update_body;
 let returnedRequestBody;
 let statBody;
-let formKiller;
 function breakGenerator(breakNum, object){
     let br;
     for(let i = 0; i < breakNum ; i++){
@@ -50,9 +49,6 @@ function createTagOnHome(hTag, tagID, tagText ) {
 }
 function initHomePage(){
     userHomePage.appendChild(userBanner);
-    createTagOnHome("button", "logout", "Log Out")
-    createTagOnHome("button","createnew","Create New Request")
-    createTagOnHome("h2", "h1Tag", `Welcome Back, ${response_body[0].firstName}`)
 
 }
 function initLoginPage(){
@@ -80,7 +76,7 @@ passLabel.innerHTML = secondFormName;
  inputPass.id = secondFormName + "1";
   inputButton = document.createElement("input");
  inputButton.type = "button";
- inputButton.value = buttonName;
+ inputButton.value = "Submit";
  inputButton.name = buttonName;
  inputButton.id = buttonName + "1";
  formGenerator.appendChild(inputUser);
@@ -133,8 +129,8 @@ function formFactoryHome(firstFormName, firstFormType, secondFormName, secondFor
  
 }
 function tagFactory(){
-createTagOnTitle("h1", "h1Tag", "Law & Order: CSS");
-createTagOnTitle("h1", "h3Tag", "Providing financial relief for CSS-related therapy costs since the summer of '76");
+createTagOnTitle("h1", "h1Tag", "CSS Help Hotline");
+createTagOnTitle("h1", "h3Tag", "Reimbursements");
 
 }
 function getDate(){
@@ -241,30 +237,22 @@ async function verifyLogin(){
 
             }
         //    initHomePage();
-        requestsByUser();
-        homeOptions();
+           
         
     }catch(e){
         console.log(e)
-        window.alert("Error in input")
     }
-  
-
-
+    requestsByUser();
+    
 }
 function modifyRequest(){
     let modify = document.getElementById("modify");  
     modify.addEventListener("click",() =>{
-        let buttonCheck = document.getElementById("formID")
-        if (buttonCheck ===null){ 
-            formFactoryHome("Request ID", "text", "Status", "text","Submit");
-            createButton.addEventListener("click", () =>{
-                            updateRequestButtons();
-            })
-
-        }else{ }
-   
+   formFactoryHome("Request ID", "text", "Status", "text","Submit");
+   createButton.addEventListener("click", () =>{
+                   updateRequestButtons();
    })
+   });
 }
 function viewAllRequests(){
     let view = document.getElementById("all");
@@ -311,29 +299,26 @@ async function requestsByUser(){
 
             })
 
-        // if(response_body===undefined){
+        // tablediv.innerHTML = info;
+        createTagOnHome("h1", "h1Tag", `Welcome Back, ${response_body[0].firstName}`)
 
-        // }else{
-
-         tableGenerator();
-
-
+        initHomePage();
+        tableGenerator();
+        createTagOnHome("button", "logout", "Log Out")
+        createTagOnHome("button","createnew","Create New Request")
+         homeOptions();
 
     }catch(e){
         console.log(e);
         window.alert("Error in input");
-        
+
     }
-    if(response_body[0].manager){
-        viewAllRequests();
-        showStatistics();
-    }
-   
+    viewAllRequests();
+    showStatistics();
 
    
 
 }
-
 function showStatistics(){
     let stats = document.getElementById("stats");
     stats.addEventListener("click", () =>{
@@ -355,8 +340,6 @@ async function showStats(){
     }
 }
  function homeOptions(){
-    initHomePage();
-
     let logout = document.getElementById("logout");
     let newReq= document.getElementById("createnew");
        logout.addEventListener('click', () =>{
@@ -369,50 +352,30 @@ async function showStats(){
     })
     
     newReq.addEventListener("click", ()=>{
-        let buttonCheck = document.getElementById("formID")
-        if (buttonCheck ===null){
-            formFactoryHome("Reason for Request","text","Requested Amount", "text","Submit", "newReq");
-            userHomePage.appendChild(userBanner);
-            createButton.addEventListener("click",()=>{
-                reasonValue = document.getElementById("Reason for Request2")
-                amountValue = document.getElementById("Requested Amount2")
-                formKiller = document.getElementById("formID");
-                requestDetails = {
-                    submittedBy: response_body[0].userLogin,
-                   reason: reasonValue.value,
-                   requestAmount: amountValue.value
-       
-               };
-               console.log(requestDetails);
-               if (reasonValue.value == "" || amountValue.value == 0 || amountValue.value < 0){
-                   window.alert("Invalid input in one or more fields")
-               }
-               else{
-                   newRequest();
-                   formKiller.remove();
-       
-               }
-            })  
-        }else{   
-    }
-     
+     formFactoryHome("Reason for Request","text","Requested Amount", "text","Submit", "newReq");
+     userHomePage.appendChild(userBanner);
+     createButton.addEventListener("click",()=>{
+         reasonValue = document.getElementById("Reason for Request2")
+         amountValue = document.getElementById("Requested Amount2")
+         requestDetails = {
+             submittedBy: response_body[0].userLogin,
+            reason: reasonValue.value,
+            requestAmount: amountValue.value
+
+        };
+        console.log(requestDetails);
+        newRequest();
+     })
     
     });
 }
 async function newRequest(){
     let url ="http://localhost:8800/reimbursements/new";
     requestReason = JSON.stringify(requestDetails)
-    let tableKiller = document.getElementById("mastertable");
-     formKiller = document.getElementById("formID");
-
     try{
        let connection = await fetch(url, {method:"POST", body: requestReason});
     //    request_body = await connection.json();
-       window.alert("Refund submitted.")
-       tableKiller.remove();
-       formKiller.remove();
-        
-       requestsByUser();
+       window.alert("Refund submitted. Relog to see updated list")
     }catch(e){
        console.log(e);
     }
@@ -454,13 +417,9 @@ async function newRequest(){
     
                     
                     if (field.toLowerCase().valueOf()==APPROVED || field.toLowerCase().valueOf()==DECLINED){
-                        field.toUpperCase();
                         fetchUpdates();
-                        window.alert("Request Updated Successfully.")
-                        let tableKiller = document.getElementById("mastertable");
-                        tableKiller.remove();
-                        returnAllRequests();
-           
+                        window.alert("Request Updated Successfully. Relog to see change.")
+          
                     } 
                     else{
                         window.alert("Invalid option in Status field.");
@@ -491,7 +450,7 @@ try{
 }
 function initBoi (){
     tagFactory();
-    formFactory("Username", "text", "Password", "password", "Log In", "login");
+    formFactory("Username", "text", "Password", "password", "Submit", "login");
     inputButton.addEventListener('click', ()=>{
         
         loginObject = {
@@ -500,9 +459,7 @@ function initBoi (){
         
         }
         // console.log(loginObject)
-
         verifyLogin();
-
     
         });
     }

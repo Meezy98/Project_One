@@ -43,41 +43,26 @@ public class ServiceLayerTests {
 
         MockitoAnnotations.openMocks(this);
         arrayList = new ArrayList<>();
-        arrayList.add(new Reimbursements("SS33DD","Ya moms",Date.valueOf(LocalDate.now()),
+        arrayList.add(new Reimbursements("SS33DD","Johnny Sins",Date.valueOf(LocalDate.now()),
                 222, "idk", "Approved"));
-        arrayList.add(new Reimbursements("SSFF33","idk bro",Date.valueOf(LocalDate.now()),
+        arrayList.add(new Reimbursements("SSFF33","Sonny Jins",Date.valueOf(LocalDate.now()),
                 555, "YURRR", "Denied"));
-        arrayList.add(new Reimbursements("FHSD$#$$@","PErson",Date.valueOf(LocalDate.now()),
+        arrayList.add(new Reimbursements("FHSD$#$$@","DANNY D BABEEE",Date.valueOf(LocalDate.now()),
                 555, "BRYOOOO", "Approved"));
         reimbursements = new ReimbursementBuilder(queries);
 
 
     }
     @Test
-    void validateUserTestByStatus(){
+    void validateUserTest(){
         Mockito.when(queries.returnRequests()).thenReturn(arrayList);
-        arrayList = reimbursements.sortByStatus();
+       arrayList = reimbursements.sortByStatus();
 
         arrayList.sort(Comparator.comparing(Reimbursements::getStatus));
         System.out.println(arrayList);
     }
-    @Test
-    void validateUserTestByDate(){
-        Mockito.when(queries.returnRequests()).thenReturn(arrayList);
-        arrayList = reimbursements.sortByDate();
 
-        arrayList.sort(Comparator.comparing(Reimbursements::getSubmittedDate));
-        System.out.println(arrayList);
-    }
 
-    @Test
-    void validateUserTestByUser(){
-        Mockito.when(queries.returnRequests()).thenReturn(arrayList);
-        arrayList = reimbursements.sortByUser();
-
-        arrayList.sort(Comparator.comparing(Reimbursements::getSubmittedBy));
-        System.out.println(arrayList);
-    }
 
     }
 

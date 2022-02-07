@@ -83,7 +83,6 @@ input[type=text] {
     border-radius: 4px;
     background-color: rgb(24, 13, 44);
     width: 6%;
-    color:red;
 
     transition: width 2s ease-in-out;
 
