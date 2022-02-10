@@ -12,3 +12,25 @@ You are tasked with creating an expense reimbursement system. For a small compan
     
     --Needed for Runtime:
     -RDS has been terminated. I included a data.sql file with create and populate logic. After implementing H2, you should be able to log in and view/create/modify reimbursements
+
+--Responsibilites--
+-Persist user info using AWS Postgres RDS
+-Setup Dao Layer and Repository layer using Hibernate and JPA
+-Build frontend web application using HTML, CSS, and JavaScript
+-Test service layer methods using Mockito with JUnit 5
+-Develop backend using Javalin
+-Log all transcations using Logback
+-Setup frontend HTTP Requests using the Fetch API
+-Ensure backend remains REST compliant
+
+
+--Technologies Used--
+-JavaScript 
+-HTML
+-CSS 
+-SQL
+-Postman
+-AWS RDS
+-Java
+-Javalin
+-Hibernate
