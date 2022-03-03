@@ -57,7 +57,7 @@ public class ReimbursementBuilder {
                 "",
                 "");
     }
-    public UserSpecs validateUser(UserSpecs specs){
+    public List<UserSpecs> validateUser(UserSpecs specs){
 
         UserSpecs userSpecs = new UserSpecs();
         userSpecs.setUserLogin(specs.getUserLogin());
