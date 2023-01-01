@@ -1,5 +1,5 @@
 ## Expense Reimbursement System
-You are tasked with creating an expense reimbursement system. For a small company/group. This program will allow employees to create reimbursement requests. All managers can view these requests and approve or deny them. When they approve/deny a request, they can optionally leave a message.
+The Expense Reimbursement System (ERS) will manage the process of reimbursing employees for expenses incurred while on company time. All employees in the company can log in and submit requests for reimbursements and view their past tickets and pending requests. Managers can log in and view all reimbursement requests and past history for all employees in the company. Managers are authorized to approve and deny requests for expense reimbursements.
 ### Key features
 - Employee
     - An employee can login to see their own reimbursements, past and pending
